@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday! 💌</title>
+    <style>
+        /* Hidden YouTube Player */
+        #youtube-player {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            top: -100px;
+            opacity: 0;
+            z-index: -9999;
+        }
+
+        /* Mute Button */
+        #musicBtn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        /* Rest of your existing CSS */
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('doodle-background.png');
+            background-size: cover;
+            font-family: 'Georgia', cursive;
+            overflow: hidden;
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 0.8s ease-in-out;
+            height: 100vh;
+        }
+
+        .slide {
+            min-width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            text-align: center;
+        }
+
+        img {
+            max-width: 80%;
+            max-height: 60vh;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin: 15px 0;
+        }
+
+        .caption {
+            font-size: 2em;
+            color: #ff6b6b;
+            margin-top: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .envelope-slide {
+            background-image: url('envelope.png');
+            background-size: cover;
+        }
+
+        .wish-image {
+            display: none;
+            max-width: 80%;
+            max-height: 70vh;
+            border-radius: 10px;
+        }
+
+        button:not(#musicBtn) {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1.2em;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-family: 'Georgia';
+            box-shadow: 0 4px 10px rgba(255,107,107,0.3);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- YouTube Player -->
+    <div id="youtube-player"></div>
+
+    <!-- Music Button -->
+    <button id="musicBtn">🎵</button>
+
+    <!-- Slides -->
+    <div class="slides">
+        <!-- Your existing slides (same as before) -->
+        <!-- Slide 1 -->
+        <div class="slide">
+            <img src="image1.png" alt="My Favorite Person">
+            <div class="caption">my fave person 💖</div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="slide">
+            <img src="image2.png" alt="Memories">
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="slide">
+            <img src="image3.png" alt="Best Human">
+            <div class="caption" style="font-size: 1.5em;">you make me sooo happyyyy 🌈</div>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="slide">
+            <img src="image4.png" alt="Adventure">
+        </div>
+
+        <!-- Slide 5 -->
+        <div class="slide">
+            <img src="image5.png" alt="Smiles">
+        </div>
+
+        <!-- Slide 6 (Envelope) -->
+        <div class="slide envelope-slide">
+            <button onclick="showWish()">Open Me! 💌</button>
+            <img src="wish.png" alt="Birthday Wish" class="wish-image" id="wishImg">
+        </div>
+    </div>
+
+    <script>
+        // YouTube Integration
+        const VIDEO_ID = 'dQw4w9WgXcQ'; // Replace with your YouTube video ID
+        let player;
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('youtube-player', {
+                height: '1',
+                width: '1',
+                videoId: VIDEO_ID,
+                playerVars: {
+                    autoplay: 1,
+                    loop: 1,
+                    playlist: ekr2nIex040,
+                    mute: 1
+                },
+                events: {
+                    'onReady': onPlayerReady
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            event.target.playVideo();
+        }
+
+        // Music Control
+        const musicBtn = document.getElementById('musicBtn');
+        let isMuted = true;
+
+        musicBtn.addEventListener('click', () => {
+            if(isMuted) {
+                player.unMute();
+                musicBtn.textContent = '🔊';
+            } else {
+                player.mute();
+                musicBtn.textContent = '🎵';
+            }
+            isMuted = !isMuted;
+        });
+
+        // Rest of your existing JavaScript
+        let currentSlide = 0;
+        const slides = document.querySelector('.slides');
+        
+        function nextSlide() {
+            if(currentSlide < 5) {
+                currentSlide++;
+                slides.style.transform = `translateX(-${currentSlide * 100}vw)`;
+            }
+        }
+        setInterval(nextSlide, 5000);
+
+        function showWish() {
+            document.getElementById('wishImg').style.display = 'block';
+        }
+    </script>
+
+    <!-- YouTube API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+</body>
+</html>
